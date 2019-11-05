@@ -4,7 +4,7 @@ import java.util.Vector;
 import java.lang.NullPointerException;
 public class main {
 
-	public class arr{
+	static public class arr{
 		Vector<Integer> son = new Vector<Integer>();
 		int count = 0;
 	}
@@ -14,7 +14,7 @@ public class main {
 	static int[] ans = new int [10005];
 	static int dfs(int root) {
 		int ret = 0;
-		for(int i = 0; i < hash[root].son.size(); i++) {
+		for(int i = 0; i < hash[root].count; i++) {
 			ret += dfs(hash[root].son.elementAt(i));
 		}
 		ans[root] = ret;
@@ -25,16 +25,19 @@ public class main {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
-		while(n > 1) {
+		int j = n;
+		for(int i = 0; i <= n; i++)
+			hash[i] = new arr();
+		while(j > 1) {
 			int x = sc.nextInt(), y = sc.nextInt() ;
-			while(1 > x && x > n && 1 > y && y > n) {
-				System.out.println("请重新输入数据：");
-				x = sc.nextInt();y = sc.nextInt() ;
-			}
-			//hash[x].count++;
+//			while(1 > x && x > n && 1 > y && y > n) {
+//				System.out.println("请重新输入数据：");
+//				x = sc.nextInt();y = sc.nextInt() ;
+//			}
+			hash[x].count++;
 			hash[x].son.add(y);
 			f[y] = true;
-			n--;
+			j--;
 		}
 		int root = 0;
 		for(int i = 1; i <= n; i++) {
@@ -44,6 +47,8 @@ public class main {
 			}
 		}
 		dfs(root);
+		for(int i = 1; i <= n; i++)
+			System.out.println(ans[i]);
 		
 	}
 
